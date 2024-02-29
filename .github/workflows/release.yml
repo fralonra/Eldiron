@@ -23,7 +23,7 @@ jobs:
       - name: Move Resources
         run: |
           mkdir output
-          mv target/release/creator output/eldiron-x86_64-unknown-linux-gnu
+          mv target/release/eldiron output/eldiron-x86_64-unknown-linux-gnu
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
@@ -45,7 +45,7 @@ jobs:
       - name: Move Resources
         run: |
           mkdir output
-          mv target/release/creator.exe output/eldiron-x86_64-pc-windows-msvc.exe
+          mv target/release/eldiron.exe output/eldiron-x86_64-pc-windows-msvc.exe
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
@@ -75,7 +75,7 @@ jobs:
       - name: Build
         run: |
           mkdir -p target/release
-          cp eldiron-x86_64-unknown-linux-gnu target/release/creator
+          cp eldiron-x86_64-unknown-linux-gnu target/release/eldiron
           cd creator
           cargo bundle --release
 
