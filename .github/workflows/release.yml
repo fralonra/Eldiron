@@ -56,6 +56,8 @@ jobs:
   linux_release:
     runs-on: ubuntu-latest
     needs: linux_build
+    env:
+      CARGO_BUNDLE_SKIP_BUILD: true
     permissions:
       contents: write
 
@@ -72,8 +74,10 @@ jobs:
 
       - name: Build
         run: |
+          mkdir -p target/release
+          cp eldiron-x86_64-unknown-linux-gnu target/release/creator
           cd creator
-          cargo bundle --release --bin ../eldiron-x86_64-unknown-linux-gnu
+          cargo bundle --release
 
       - name: Rename
         run: mv target/release/bundle/deb/*.deb Eldiron.deb
@@ -107,15 +111,10 @@ jobs:
 
       - name: Create MSI Installer
         run: |
-          ./WiX.*/tools/heat.exe dir "output" -dr INSTALLDIR -ag -cg DynamicFragment \
-            -ke -srd -sfrag -nologo -pog:Binaries -pog:Documents -pog: Satellites \
-            -pog:Sources -pog:Content -out "./resources.wxs"
           ./WiX.*/tools/candle.exe -arch "x64" -ext WixUIExtension -ext WixUtilExtension \
             -out "./eldiron.wixobj" "./build/windows/wix/eldiron.wxs"
-          ./WiX.*/tools/candle.exe -arch "x64" -ext WixUIExtension -ext WixUtilExtension \
-            -out "./resources.wixobj" "./resources.wxs"
           ./WiX.*/tools/light.exe -ext WixUIExtension -ext WixUtilExtension \
-            -out "./Eldiron.msi" -sice:ICE61 -sice:ICE91 "./eldiron.wixobj" "./resources.wixobj"
+            -out "./Eldiron.msi" -sice:ICE61 -sice:ICE91 "./eldiron.wixobj"
 
       - name: Release
         uses: softprops/action-gh-release@v1
