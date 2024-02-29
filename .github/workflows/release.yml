@@ -22,8 +22,6 @@ jobs:
 
       - name: Move Resources
         run: |
-          ls
-          cd ..
           mkdir output
           mv target/release/creator output/eldiron-x86_64-unknown-linux-gnu
       
@@ -52,7 +50,6 @@ jobs:
 
       - name: Move Resources
         run: |
-          cd ..
           mkdir output
           mv target/release/creator.exe output/eldiron-x86_64-pc-windows-msvc.exe
 
@@ -90,8 +87,9 @@ jobs:
           mv eldiron-x86_64-unknown-linux-gnu creator/eldiron
           cd creator
           cargo bundle --release --bin eldiron
-          cd ..
-          mv target/release/bundle/deb/*.deb Eldiron.deb
+
+      - name: Rename
+        run: mv target/release/bundle/deb/*.deb Eldiron.deb
 
       - name: Release
         uses: softprops/action-gh-release@v1
