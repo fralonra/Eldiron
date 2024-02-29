@@ -24,12 +24,6 @@ jobs:
         run: |
           mkdir output
           mv target/release/creator output/eldiron-x86_64-unknown-linux-gnu
-      
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            output/eldiron-x86_64-unknown-linux-gnu
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
@@ -52,12 +46,6 @@ jobs:
         run: |
           mkdir output
           mv target/release/creator.exe output/eldiron-x86_64-pc-windows-msvc.exe
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            output/eldiron-x86_64-pc-windows-msvc.exe
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
@@ -84,9 +72,8 @@ jobs:
 
       - name: Build
         run: |
-          mv eldiron-x86_64-unknown-linux-gnu creator/eldiron
           cd creator
-          cargo bundle --release --bin eldiron
+          cargo bundle --release --bin ../eldiron-x86_64-unknown-linux-gnu
 
       - name: Rename
         run: mv target/release/bundle/deb/*.deb Eldiron.deb
@@ -94,7 +81,9 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: Eldiron.deb
+          files: |
+            Eldiron.deb
+            eldiron-x86_64-unknown-linux-gnu
 
   windows_release:
     runs-on: windows-latest
@@ -131,4 +120,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: Eldiron.msi
+          files: |
+            Eldiron.msi
+            eldiron-x86_64-pc-windows-msvc.exe
