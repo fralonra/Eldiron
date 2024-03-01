@@ -72,12 +72,12 @@ jobs:
       - name: Install Dependencies
         run: cargo install cargo-bundle
 
-      - name: Build
+      - name: Create Deb
         run: |
           mkdir -p target/release
           cp eldiron-x86_64-unknown-linux-gnu target/release/eldiron
           cd creator
-          cargo bundle --release
+          cargo bundle --release --bin eldiron
 
       - name: Rename
         run: mv target/release/bundle/deb/*.deb Eldiron.deb
