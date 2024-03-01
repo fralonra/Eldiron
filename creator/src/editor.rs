@@ -136,7 +136,7 @@ impl TheTrait for Editor {
 
         let mut logo_button = TheMenubarButton::new(TheId::named("Logo"));
         logo_button.set_icon_name("logo".to_string());
-        logo_button.set_status_text("Open the Eldiron Website ...");
+        logo_button.set_status_text("1111Open the Eldiron Website ...");
 
         let mut open_button = TheMenubarButton::new(TheId::named("Open"));
         open_button.set_icon_name("icon_role_load".to_string());
