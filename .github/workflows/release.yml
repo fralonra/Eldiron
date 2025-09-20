@@ -99,7 +99,6 @@ jobs:
     strategy:
       matrix:
         config:
-          - { working-directory: "creator", bin-name: "eldiron-creator" }
           - { working-directory: "clients/client", bin-name: "eldiron-client" }
 
     steps:
@@ -265,7 +264,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        bin-name: ["eldiron-creator", "eldiron-client"]
+        bin-name: ["eldiron-client"]
 
     steps:
       - uses: actions/checkout@v4
