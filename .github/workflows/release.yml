@@ -106,8 +106,11 @@ jobs:
       - uses: actions/checkout@v4
 
       # --- Build Eldiron -----------------------------------------------------
+      - name: Install build dependencies
+        run: rustup target add wasm32-unknown-unknown
+
       - name: Build (release)
-        run: cargo run --verbose --release --package run-wasm -- --release --bin ${{ matrix.config.bin-name }} --build-only
+        run: cargo run-wasm --release --bin ${{ matrix.config.bin-name }} --build-only
 
       # --- Package artefacts -------------------------------------------------
       - name: Package artefacts
